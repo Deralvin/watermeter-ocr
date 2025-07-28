@@ -156,7 +156,7 @@ class _CameraWithBoxState extends State<CameraWithBox> {
                 ],
               ),
               if (croppedFile != null) Image.file(croppedFile!),
-              Text("Kontol fakih anjing $_recognizedText"),
+              Text("Text Recognized $_recognizedText"),
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 5, horizontal: 18),
