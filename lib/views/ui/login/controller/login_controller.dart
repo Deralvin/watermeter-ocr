@@ -8,6 +8,7 @@ import 'package:watermeterocr/main.dart';
 import 'package:watermeterocr/services/auth_service.dart';
 import 'package:watermeterocr/views/ui/home_view.dart';
 import 'package:watermeterocr/views/ui/pengguna/home_pelanggan_view.dart';
+import 'package:watermeterocr/views/ui/pengguna/main_pelanggan_view.dart';
 import 'package:watermeterocr/views/ui/petugas/home_petugas_view.dart';
 
 class LoginController extends GetxController {
@@ -28,7 +29,7 @@ class LoginController extends GetxController {
     final role = prefs.getString('role');
     if (token != null && !Jwt.isExpired(token)) {
       if (role == 'Pelanggan') {
-        Get.offAll(HomePelangganView());
+        Get.offAll(MainPelangganView());
       } else if (role == 'Petugas') {
         Get.offAll(HomePetugasView());
       }
@@ -50,7 +51,7 @@ class LoginController extends GetxController {
       log("login data ${signInData.role}");
       if (signInData.token != null) {
         if (signInData.role == 'Pelanggan') {
-          Get.offAll(HomePelangganView());
+          Get.offAll(MainPelangganView());
         } else if (signInData.role == 'Petugas') {
           Get.offAll(HomePetugasView());
         } else {}
