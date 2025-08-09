@@ -83,13 +83,4 @@ class HomePelangganController extends GetxController {
       );
     }
   }
-
-  String formatRupiah(int number) {
-    final formatter = NumberFormat.currency(
-      locale: 'id_ID',
-      symbol: 'Rp. ',
-      decimalDigits: 0,
-    );
-    return '${formatter.format(number)},-';
-  }
 }
