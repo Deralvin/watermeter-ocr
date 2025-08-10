@@ -56,11 +56,18 @@ class ReportBillsController extends GetxController {
   }
 
   Future<void> performTextRecognition(File imageFile) async {
+    // proses mengambil gambar dari internalt storage yang sudah di crop
     final inputImage = InputImage.fromFile(imageFile);
+
+    //proses untuk mendefiniskan text apa yang akan di recognize
     final textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
+
+    //proses membaca image menjadi text number
     final recognized = await textRecognizer.processImage(inputImage);
 
     final allText = recognized.text;
+
+    //fungsi filter text itu angka
     final regExp = RegExp(r'\d+');
     final matches = regExp.allMatches(allText);
     final numbers = matches.map((m) => m.group(0)).join(' ');
@@ -74,6 +81,7 @@ class ReportBillsController extends GetxController {
 
   Future<void> captureImageInBox() async {
     try {
+      //fuul capture image
       final file = await cameraController.takePicture();
       final imageBytes = await File(file.path).readAsBytes();
       pathOriginalCamera = file.path;
@@ -84,11 +92,13 @@ class ReportBillsController extends GetxController {
       final scaleX = original.width / previewSize.height;
       final scaleY = original.height / previewSize.width;
 
+// proses crop bounding box
       final cropX = (180).toInt();
       final cropY = (600 * scaleY).toInt();
       final cropW = (350).toInt();
       final cropH = (boxHeight * scaleY).toInt();
 
+//hasil dari crop image
       final cropped = img.copyCrop(
         original,
         x: cropX,
@@ -97,13 +107,18 @@ class ReportBillsController extends GetxController {
         height: cropH,
       );
 
+// save ke internal storage file
       final croppedBytes = Uint8List.fromList(img.encodeJpg(cropped));
       final dir = await getTemporaryDirectory();
       final croppedImageFile =
           File('${dir.path}/cropped_${DateTime.now()}.jpg');
       await croppedImageFile.writeAsBytes(croppedBytes);
 
+      //file sudah tersimpan
+
       croppedFile = croppedImageFile;
+
+      //fungsi untuk text recognize
       await performTextRecognition(croppedFile!);
       update();
     } catch (e) {

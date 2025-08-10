@@ -103,7 +103,9 @@ class _ProfileViewState extends State<ProfileView> {
           ),
           Gap(10.sp),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              _showLogoutConfirmation();
+            },
             child: Text("Logout"),
           )
         ],

@@ -32,7 +32,7 @@ class HistoryBills {
 
 class BillsData {
   int? id;
-  CustomerName? customerName;
+  String? customerName;
   String? startReading;
   String? endReading;
   int? usage;
@@ -69,7 +69,7 @@ class BillsData {
 
   factory BillsData.fromJson(Map<String, dynamic> json) => BillsData(
         id: json["id"],
-        customerName: customerNameValues.map[json["customerName"]]!,
+        customerName: json["customerName"]!,
         startReading: json["startReading"],
         endReading: json["endReading"],
         usage: json["usage"],
@@ -90,7 +90,7 @@ class BillsData {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "customerName": customerNameValues.reverse[customerName],
+        "customerName": customerName,
         "startReading": startReading,
         "endReading": endReading,
         "usage": usage,
@@ -107,10 +107,6 @@ class BillsData {
         "created_at": createdAt?.toIso8601String(),
       };
 }
-
-enum CustomerName { HAMID }
-
-final customerNameValues = EnumValues({"Hamid": CustomerName.HAMID});
 
 enum Status { BELUM_DIBAYAR }
 

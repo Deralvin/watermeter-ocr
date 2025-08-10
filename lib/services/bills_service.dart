@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
@@ -61,8 +62,11 @@ class BillsService {
           },
         ),
       );
+
+      log("data queeue ${response.data}");
       return HistoryBills.fromJson(response.data);
     } catch (e) {
+      log("error message nya apa $e");
       return HistoryBills(billsData: []);
     }
   }

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:watermeterocr/views/ui/petugas/controller/home_petugas_controller.dart';
 import 'package:watermeterocr/views/ui/petugas/report_bills/report_bills_view.dart';
 import 'package:watermeterocr/main.dart';
+import 'package:watermeterocr/views/ui/profile/profile_view.dart';
 
 class HomePetugasView extends StatelessWidget {
   HomePetugasView({super.key});
@@ -12,7 +13,7 @@ class HomePetugasView extends StatelessWidget {
     ReportBillsView(
       cameras: cameras,
     ),
-    Center(child: Text('Profile Page')),
+    ProfileView(),
   ];
 
   @override
