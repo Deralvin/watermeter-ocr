@@ -111,7 +111,7 @@ class _DetailInvoiceViewState extends State<DetailInvoiceView> {
                               ),
                               Expanded(
                                 child: Text(
-                                    "Pencacatan ${DateFormat('d MMM yyyy').format(widget.billsData.createdAt!)} : ${widget.billsData.startReading}"),
+                                    "Pencacatan ${DateFormat('d MMM yyyy').format(DateTime(widget.billsData.createdAt!.year, widget.billsData.createdAt!.month - 1, widget.billsData.createdAt!.day))} : ${widget.billsData.startReading}"),
                               )
                             ],
                           ),
@@ -124,8 +124,8 @@ class _DetailInvoiceViewState extends State<DetailInvoiceView> {
                               ),
                               Expanded(
                                 child: Text(
-                                    "Pencacatan ${DateFormat('d MMM yyyy').format(DateTime(widget.billsData.createdAt!.year, widget.billsData.createdAt!.month + 1, widget.billsData.createdAt!.day))} : ${widget.billsData.endReading}"),
-                              )
+                                    "Pencacatan ${DateFormat('d MMM yyyy').format(widget.billsData.createdAt!)} : ${widget.billsData.endReading}"),
+                              ),
                             ],
                           ),
                           Row(
