@@ -46,7 +46,7 @@ class _DetailInvoiceViewState extends State<DetailInvoiceView> {
       // Tampilkan snackbar
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Invoice berhasil disimpan"),
+          content: const Text("Invoice berhasil disimpan"),
           action: SnackBarAction(
             label: "Buka",
             onPressed: () {
@@ -68,7 +68,7 @@ class _DetailInvoiceViewState extends State<DetailInvoiceView> {
       init: DetailInvoiceController()..decodeJwt(),
       builder: (controller) => Scaffold(
         appBar: AppBar(
-          title: Text("Detail Invoice"),
+          title: const Text("Detail Invoice"),
         ),
         body: Obx(
           () => Container(
@@ -167,7 +167,7 @@ class _DetailInvoiceViewState extends State<DetailInvoiceView> {
                               // Data rows
                               TableRow(
                                   decoration:
-                                      BoxDecoration(color: Colors.white),
+                                      const BoxDecoration(color: Colors.white),
                                   children: [
                                     tableCell("1"),
                                     tableCell("Beban", isBold: true),
@@ -185,7 +185,7 @@ class _DetailInvoiceViewState extends State<DetailInvoiceView> {
                                   ]),
                               TableRow(
                                   decoration:
-                                      BoxDecoration(color: Colors.white),
+                                      const BoxDecoration(color: Colors.white),
                                   children: [
                                     tableCell("2"),
                                     tableCell("0 - 10 m3", isBold: true),
@@ -203,7 +203,7 @@ class _DetailInvoiceViewState extends State<DetailInvoiceView> {
                                   ]),
                               TableRow(
                                   decoration:
-                                      BoxDecoration(color: Colors.white),
+                                      const BoxDecoration(color: Colors.white),
                                   children: [
                                     tableCell("3"),
                                     tableCell("11 - 20 m3", isBold: true),
@@ -222,7 +222,7 @@ class _DetailInvoiceViewState extends State<DetailInvoiceView> {
                                   ]),
                               TableRow(
                                   decoration:
-                                      BoxDecoration(color: Colors.white),
+                                      const BoxDecoration(color: Colors.white),
                                   children: [
                                     tableCell("4"),
                                     tableCell("21 ke atas m3", isBold: true),
@@ -244,22 +244,23 @@ class _DetailInvoiceViewState extends State<DetailInvoiceView> {
                             ],
                           ),
                           Container(
-                            padding: EdgeInsets.all(12),
+                            padding: const EdgeInsets.all(12),
                             color: Colors.grey[200],
                             alignment: Alignment.center,
-                            child: Text(
+                            child: const Text(
                               "Total Pembayaran Anda",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18),
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(16),
                             color: Colors.green[100],
                             alignment: Alignment.center,
                             child: Text(
-                              "${controller.formatRupiah(double.parse(widget.billsData.costAbove20.toString()) ?? 0)}",
-                              style: TextStyle(
+                              controller.formatRupiah(double.parse(
+                                  widget.billsData.totalPayment.toString())),
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 22),
                             ),
                           ),
@@ -272,11 +273,11 @@ class _DetailInvoiceViewState extends State<DetailInvoiceView> {
                   Center(
                     child: ElevatedButton(
                       onPressed: _captureAndSave,
-                      child: Text("Download"),
+                      child: const Text("Download"),
                     ),
                   ),
                   Gap(24.sp),
-                  Center(
+                  const Center(
                     child: Text(
                       "Kuitansi Pembayaran",
                     ),
