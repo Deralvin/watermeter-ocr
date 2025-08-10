@@ -47,18 +47,61 @@ class LoginController extends GetxController {
     loadingLogin.value = true;
 
     try {
-      final signInData = await authService.login(emailTxt.text, passTxt.text);
-      log("login data ${signInData.role}");
-      if (signInData.token != null) {
-        if (signInData.role == 'Pelanggan') {
-          Get.offAll(MainPelangganView());
-        } else if (signInData.role == 'Petugas') {
-          Get.offAll(HomePetugasView());
-        } else {}
+      if (emailTxt.text.trim().isEmpty) {
+        Get.snackbar(
+          "Validasi",
+          "Harap isi email atau username anda",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.orange.withOpacity(0.9),
+          colorText: Colors.white,
+          margin: const EdgeInsets.all(12),
+          icon: const Icon(Icons.warning, color: Colors.white),
+          duration: const Duration(seconds: 2),
+        );
+      } else if (passTxt.text == "") {
+        Get.snackbar(
+          "Validasi",
+          "Harap isi password anda",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.orange.withOpacity(0.9),
+          colorText: Colors.white,
+          margin: const EdgeInsets.all(12),
+          icon: const Icon(Icons.warning, color: Colors.white),
+          duration: const Duration(seconds: 2),
+        );
+      } else {
+        final signInData = await authService.login(emailTxt.text, passTxt.text);
+        log("login data ${signInData.role}");
+        if (signInData.token != null) {
+          if (signInData.role == 'Pelanggan') {
+            Get.offAll(MainPelangganView());
+          } else if (signInData.role == 'Petugas') {
+            Get.offAll(HomePetugasView());
+          } else {}
+        } else {
+          showLoginFailed();
+        }
       }
       loadingLogin.value = false;
     } catch (e) {
       loadingLogin.value = false;
     }
+  }
+
+  void showLoginFailed() {
+    Get.defaultDialog(
+      title: "Login Failed",
+      titleStyle: const TextStyle(fontWeight: FontWeight.bold),
+      content: const Text(
+        "Akun anda tidak terdaftar atau hubungi administratif",
+        textAlign: TextAlign.center,
+      ),
+      confirm: ElevatedButton(
+        onPressed: () {
+          Get.back(); // Tutup popup
+        },
+        child: const Text("OK"),
+      ),
+    );
   }
 }

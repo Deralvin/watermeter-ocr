@@ -44,8 +44,9 @@ class BillsService {
         ),
       );
       return response.data;
-    } catch (e) {
-      return {"message": "Execption $e"};
+    } catch (e, s) {
+      log("error stacktrace nya tambah bills $s");
+      return {"message": "Tagihan Bulan Ini sudah ada"};
     }
   }
 

@@ -134,27 +134,62 @@ class ReportBillsController extends GetxController {
   }
 
   void onPressedSavedBills() async {
-    int awal = int.parse(catatanAwalController.text);
-    int akhir = int.parse(recognizedController.text);
-    int? hasil = akhir - awal;
-    log("data yang disimpan ${pathOriginalCamera} ${awal} ${akhir} ${selectedUser.value!.id} ${hasil}");
-
-    final data = await billsService.postAddBills(
-        pathImage: pathOriginalCamera,
-        idUser: selectedUser.value!.id.toString(),
-        catatanAwal: catatanAwalController.text,
-        catatanAkhir: recognizedController.text,
-        pemakaian: hasil.toString());
-
-    log("return data response ${data['message']}");
-
-    if (data['message'] == "Data berhasil dibuat") {
-      Get.snackbar('Success', "${data['message']}",
-          backgroundColor: Colors.green, colorText: Colors.white);
-      clearData();
+    if (catatanAwalController.text.trim().isEmpty) {
+      Get.snackbar(
+        "Validasi",
+        "Harap isi catatan awal anda",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.orange.withOpacity(0.9),
+        colorText: Colors.white,
+        margin: const EdgeInsets.all(12),
+        icon: const Icon(Icons.warning, color: Colors.white),
+        duration: const Duration(seconds: 2),
+      );
+    } else if (selectedUser.value == null) {
+      Get.snackbar(
+        "Validasi",
+        "Harap pilih pelanggan anda",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.orange.withOpacity(0.9),
+        colorText: Colors.white,
+        margin: const EdgeInsets.all(12),
+        icon: const Icon(Icons.warning, color: Colors.white),
+        duration: const Duration(seconds: 2),
+      );
+    } else if (recognizedController.text.trim().isEmpty) {
+      Get.snackbar(
+        "Validasi",
+        "Harap isi catatan Akhir",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.orange.withOpacity(0.9),
+        colorText: Colors.white,
+        margin: const EdgeInsets.all(12),
+        icon: const Icon(Icons.warning, color: Colors.white),
+        duration: const Duration(seconds: 2),
+      );
     } else {
-      Get.snackbar('Error', "${data['message']}",
-          backgroundColor: Colors.red, colorText: Colors.white);
+      int awal = int.parse(catatanAwalController.text);
+      int akhir = int.parse(recognizedController.text);
+      int? hasil = akhir - awal;
+      log("data yang disimpan ${pathOriginalCamera} ${awal} ${akhir} ${selectedUser.value!.id} ${hasil}");
+
+      final data = await billsService.postAddBills(
+          pathImage: pathOriginalCamera,
+          idUser: selectedUser.value!.id.toString(),
+          catatanAwal: catatanAwalController.text,
+          catatanAkhir: recognizedController.text,
+          pemakaian: hasil.toString());
+
+      log("return data response ${data['message']}");
+
+      if (data['message'] == "Data berhasil dibuat") {
+        Get.snackbar('Success', "${data['message']}",
+            backgroundColor: Colors.green, colorText: Colors.white);
+        clearData();
+      } else {
+        Get.snackbar('Error', "${data['message']}",
+            backgroundColor: Colors.red, colorText: Colors.white);
+      }
     }
   }
 
